@@ -148,6 +148,8 @@ GRANT ALL PRIVILEGES ON mydatabase.* TO 'Quiet'@'%';
 FLUSH PRIVILEGES;
 ```
 
+Теперь БД доступна для `Quiet`:
+
 ![Adminer:Quiet](gitcontent/q_db.PNG)
 
 
