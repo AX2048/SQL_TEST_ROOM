@@ -29,7 +29,7 @@
 
 В начале нужно создать директорию `mysql-data` в корне проекта.
 
-Делее в директроии с `docker-compose.yml`:
+Далее в директории с `docker-compose.yml`:
 ```
 docker compose up
 ```
@@ -68,6 +68,7 @@ CREATE USER 'Quiet'@'%' IDENTIFIED BY 'Quiet_pass';
 CREATE DATABASE mydatabase;
 ```
 
+Показать Базы Данных, которые может видеть текущий пользователь, в случае примера. это `root`:
 ```
 mysql> SHOW DATABASES;
 +--------------------+
@@ -93,6 +94,7 @@ CREATE TABLE users (
   name TEXT
 );
 ```
+Показать таблицы в БД:
 ```
 mysql> SHOW TABLES;
 +----------------------+
@@ -122,6 +124,7 @@ CREATE TABLE comments (
 );
 ```
 
+Показать таблицы в БД:
 ```
 mysql> SHOW FULL TABLES;
 +----------------------+------------+
@@ -189,3 +192,79 @@ MySQL системные БД:
 ADMINER_DESIGN: pepa-linha-dark
 ```
 
+## Использование для решения ACUTA-задачи
+
+**Задача**
+
+Есть таблицы: 
+ - пользователи user(id INT, name TEXT), 
+ - подписчики subscribers(user_id INT, subscriber_user_id INT)
+ - комментарии commets(id INT, user_id INT, text TEXT, created TIMESTAMPTZ).
+
+1) Напишите запрос, который бы вывел всех подписчиков без единого комментария.
+
+2) Напишите запрос, который возвращает десять последних комментариев подписчиков заданного пользователя.
+
+3) Перепишите запрос из задания 2, который работает эффективнее, если бы количество пользователей и их комментариев было очень большим (подзапрос LATERAL).
+
+---
+
+Для решения я создал БД `mydatabase`. Поля `id` с автоинкрементом. 
+
+С помощью скрипта `value_add.py` я добавил первые 3 записи в таблицу `users`.
+
+С помощью скрипта `random_values_add_to_tables.py` наполнил рандомными значениями таблицы:
+```
+('comments',)
+('subscribers',)
+('users',)
+```
+
+Далее добавил в `subscribers` строку `13 13` вручную.
+
+![](gitcontent/4db.PNG)
+---
+
+**Решение**
+
+1. Запрос, который бы вывел всех подписчиков без единого комментария.
+
+```
+SELECT s.subscriber_user_id 
+FROM subscribers s
+LEFT JOIN comments c ON s.subscriber_user_id = c.user_id 
+WHERE c.id IS NULL;
+```
+![](gitcontent/1db.PNG)
+
+2. Запрос, который возвращает десять последних комментариев подписчиков заданного пользователя.
+
+```
+SELECT c.*
+FROM comments c
+INNER JOIN subscribers s ON c.user_id = s.subscriber_user_id
+WHERE s.user_id = 3
+ORDER BY c.created DESC
+LIMIT 10;
+```
+
+![](gitcontent/2db.PNG)
+
+3. Запрос из задания 2, который работает эффективнее, если бы количество пользователей и их комментариев было очень большим (подзапрос LATERAL).
+
+PS: в моей среде не поддерживается оператор LATERAL JOIN.
+```
+SELECT c.*
+FROM comments c
+INNER JOIN (
+ SELECT s.subscriber_user_id
+ FROM subscribers s
+ WHERE s.user_id = 3
+) s ON c.user_id = s.subscriber_user_id
+ORDER BY c.created DESC
+LIMIT 10;
+```
+
+![](gitcontent/3db.PNG)
+
+**Задача решена.**
