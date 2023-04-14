@@ -5,9 +5,6 @@ services:
     image: mysql:latest
     restart: always
     environment:
-#      MYSQL_DATABASE: testdb
-#      MYSQL_USER: user
-#      MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: example
     ports:
       - "3306:3306"
@@ -30,6 +27,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.python
+    command: python ./while_true.py
     volumes:
       - ./python-scripts:/app
     networks:

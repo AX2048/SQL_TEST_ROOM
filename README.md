@@ -2,9 +2,27 @@
 
 # SQL TEST ROOM 
 
+## Как посмотреть список таблиц и их структуру в MySQL
+
+`SHOW DATABASES;` - список баз данных
+`SHOW TABLES [FROM db_name];` -  список таблиц в базе 
+`SHOW COLUMNS FROM таблица [FROM db_name];` - список столбцов в таблице
+`SHOW CREATE TABLE table_name;` - показать структуру таблицы в формате "CREATE TABLE"
+`SHOW INDEX FROM tbl_name;` - список индексов
+`SHOW GRANTS FOR user [FROM db_name];` - привилегии для пользователя.
+
+`SHOW VARIABLES;` - значения системных переменных
+`SHOW [FULL] PROCESSLIST;` - статистика по mysqld процессам
+`SHOW STATUS;` - общая статистика
+`SHOW TABLE STATUS [FROM db_name];` - статистика по всем таблицам в базе
+
+
+
+## Запуск
+
 В начале нужно создать директорию `mysql-data` в корне проекта.
 
-Запуск:
+Делее в директроии с `docker-compose.yml`:
 ```
 docker compose up
 ```
@@ -28,7 +46,7 @@ mysql -u root -p
 example
 ```
 
-Содание двух новых пользователей:
+Создание двух новых пользователей:
 ```
 CREATE USER 'Ishmael'@'localhost' IDENTIFIED BY 'Ishmael_pass';
 CREATE USER 'Quiet'@'%' IDENTIFIED BY 'Quiet_pass';
@@ -125,9 +143,18 @@ FLUSH PRIVILEGES;
 
 ## PYTHON 
 
-Питон-скриптами создадим и будм управлять БД.
+Питон-скриптами создадим и будем управлять БД.
 
-Контейнер питона собиратеся в `Dockerfile.python`.
+Контейнер питона собирается в `Dockerfile.python`.
+
+`while_true.py` - да, это такой элегантный сопособ не давать контейнеру с питоном завершиться.
+
+Вход в контейнер питона: 
+```
+docker exec -it sql_test_room-python-1 bash
+```
+
+`init_db.py` - скрипт для работы с БД.
 
 
 ## MYSQL
@@ -147,8 +174,11 @@ MySQL системные БД:
 
 ## ADMINER 
 
+Доступен по: http://localhost:8080
+
 ```
 Версия MySQL: 8.0.32 с PHP-расширением MySQLi
 
 ADMINER_DESIGN: pepa-linha-dark
 ```
+
