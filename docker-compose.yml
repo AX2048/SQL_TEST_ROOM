@@ -13,6 +13,19 @@ services:
     networks:
       - db_net
 
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - db_net
+
   adminer:
     image: adminer
     restart: always
@@ -22,6 +35,9 @@ services:
       ADMINER_DESIGN: pepa-linha-dark
     networks:
       - db_net
+    depends_on:
+      - mysql
+      - postgres
 
   python:
     build: 
@@ -34,6 +50,7 @@ services:
       - db_net
     depends_on:
       - mysql
+      - postgres
 
 networks:
   db_net:

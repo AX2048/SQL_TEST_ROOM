@@ -9,6 +9,9 @@
 # ignore ALL files in ANY directory named temp
 temp/
 
+### Postgres ###
+postgres-data/
+
 ### MySQL ###
 mysql-data/
 

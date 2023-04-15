@@ -27,7 +27,7 @@
 
 ## Запуск
 
-В начале нужно создать директорию `mysql-data` в корне проекта.
+В начале нужно создать директорию `mysql-data` и `postgres-data` в корне проекта.
 
 Далее в директории с `docker-compose.yml`:
 ```
@@ -37,9 +37,11 @@ docker compose up
 ps:
 ```
 PS C:\Users\ponom\Documents\CODE\SQL_TEST_ROOM> docker compose ps
-NAME                      IMAGE               COMMAND                  SERVICE             CREATED             STATUS              PORTS
-sql_test_room-adminer-1   adminer             "entrypoint.sh php -…"   adminer             7 minutes ago       Up 7 minutes        0.0.0.0:8080->8080/tcp
-sql_test_room-mysql-1     mysql:latest        "docker-entrypoint.s…"   mysql               9 minutes ago       Up 7 minutes        0.0.0.0:3306->3306/tcp, 33060/tcp
+NAME                       IMAGE                  COMMAND                  SERVICE             CREATED              STATUS              PORTS
+sql_test_room-adminer-1    adminer                "entrypoint.sh php -…"   adminer             About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp
+sql_test_room-mysql-1      mysql:latest           "docker-entrypoint.s…"   mysql               About a minute ago   Up About a minute   0.0.0.0:3306->3306/tcp, 33060/tcp
+sql_test_room-postgres-1   postgres:latest        "docker-entrypoint.s…"   postgres            About a minute ago   Up About a minute   0.0.0.0:5432->5432/tcp
+sql_test_room-python-1     sql_test_room-python   "python ./while_true…"   python              About a minute ago   Up About a minute
 ```
 
 Вход в контейнер с `mysql`, в моём случае это `sql_test_room-mysql-1`, команда выполняется в директории проекта с `docker-compose.yml`:
@@ -271,3 +273,9 @@ LIMIT 10;
 ![](gitcontent/3db.PNG)
 
 **Задача решена.**
+
+## PostgreSQL
+
+<img src="gitcontent/Postgresql_elephant.svg.png" alt="MySQL" width="300" height="300">
+
+PostgreSQL

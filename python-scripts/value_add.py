@@ -12,7 +12,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 # Вставка тестовой записи в таблицу
-sql = "INSERT INTO users (name) VALUES ('Boss')"
+sql = "INSERT INTO users (name) VALUES ('Big Boss')"
 mycursor.execute(sql)
 # Подтверждение изменений
 mydb.commit()
