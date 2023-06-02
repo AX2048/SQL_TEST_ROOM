@@ -279,3 +279,43 @@ LIMIT 10;
 <img src="gitcontent/Postgresql_elephant.svg.png" alt="MySQL" width="300" height="300">
 
 PostgreSQL
+
+`SELECT datname FROM pg_database;` - Список баз данных в PostgreSQL с помощью оператора SELECT
+
+`CREATE DATABASE outer_haven;` - Создать БД outer_haven
+
+`docker exec -it sql_test_room-postgres-1 bash`
+
+`psql -U postgres -d outer_haven`
+
+`SELECT * FROM names;`
+
+```
+ id |      name       |         created_at         | number | description |                               key                
+                
+----+-----------------+----------------------------+--------+-------------+--------------------------------------------------
+----------------
+  1 | Big Boss        | 2023-06-02 14:13:25.476838 | 427281 | Описание    | 7e075b0184ea7269cda191c18c0960d29c52182460daa9605
+fd08c2e312874cf
+  2 | Ahab            | 2023-06-02 14:13:25.477878 | 653744 | Описание    | dbb47960ec8edb39a2863a3e0f049c3c1c9d4afdcf7d8cec0
+ca15556e4e7e25e
+  3 | Ishmael         | 2023-06-02 14:13:25.478076 | 798887 | Описание    | a9594bf40c5e91092d44767ad39167906419e8b4904aece30
+fb491bcd4c98570
+  4 | EVA             | 2023-06-02 14:13:25.478255 | 177499 | Описание    | d324548456b8aa8ccefbba9afb2e13268af0fcce1832241f9
+80bde36b31cf618
+  5 | Quiet           | 2023-06-02 14:13:25.47843  | 619266 | Описание    | 72460e3f6f7524b8465eeed874395881b07c5d847c1fdb6f6
+4763e7e98a787fc
+  6 | Shalashaka      | 2023-06-02 14:13:25.478621 | 533700 | Описание    | cf57924c6fee34a1e8a7a371b7b6fa98c385665e158b3c28d
+3f6fe945767d052
+  7 | Paz             | 2023-06-02 14:13:25.478816 | 765364 | Описание    | b47347bddfeef2ef4cead365256ce993b1c96526f0c65d713
+8c1eb18f93eb49a
+  8 | Dr. Strangelove | 2023-06-02 14:13:25.479001 | 544041 | Описание    | 1452adda30697a1b214d28159160a883b8e630bb6592ff967
+992267056d32cb5
+  9 | Benedict Miller | 2023-06-02 14:13:25.479181 | 903173 | Описание    | 25b41ee3d697f8c329b32711e0ba54be69330b373f3d6c400
+f6eceb4346dd819
+ 10 | Eli             | 2023-06-02 14:13:25.479367 | 449873 | Описание    | 2a76ddb0df93d92f816db208a99126ac6276ea2bcb5c01c05
+4037cb19adbda50
+(10 rows)
+```
+
+`ALTER TABLE names ADD COLUMN role VARCHAR(50);`

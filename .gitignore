@@ -10,10 +10,10 @@
 temp/
 
 ### Postgres ###
-postgres-data/
+data-postgres/
 
 ### MySQL ###
-mysql-data/
+data-mysql/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
