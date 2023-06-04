@@ -333,3 +333,67 @@ outer_haven=# SELECT * FROM names;
 ```
 
 ![](.gitcontent/posgre_roles.png)
+
+
+## INNER JOIN и LEFT JOIN
+
+Создадим и заполним таблицы `employees` и `projects`:
+
+Create ::
+```
+CREATE TABLE IF NOT EXISTS employees (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    position VARCHAR(100) NOT NULL,
+    department VARCHAR(100) NOT NULL
+)
+```
+
+```
+CREATE TABLE IF NOT EXISTS projects (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    employee_id INTEGER REFERENCES employees(id)
+)
+```
+
+Data ::
+```
+INSERT INTO employees (name, position, department) 
+VALUES 
+    ('John Doe', 'Manager', 'HR'),
+    ('Jane Smith', 'Developer', 'IT'),
+    ('Mike Johnson', 'Designer', 'Design')
+```
+
+```
+INSERT INTO projects (name, start_date, end_date, employee_id) 
+VALUES 
+    ('Project A', '2023-01-01', '2023-02-28', 1),
+    ('Project B', '2023-03-01', '2023-04-30', 2),
+    ('Project C', '2023-05-01', '2023-06-30', 3)
+```
+
+### Запросы
+
+SQL-запрос с INNER JOIN
+```
+SELECT employees.name, projects.name
+FROM employees
+INNER JOIN projects ON employees.id = projects.employee_id
+```
+
+![](.gitcontent/Screenshot_20230604_163703%20-%20INNER.png)
+
+SQL-запрос с LEFT JOIN
+```
+SELECT employees.name, projects.name
+FROM employees
+LEFT JOIN projects ON employees.id = projects.employee_id
+```
+
+![](.gitcontent/Screenshot_20230604_163735%20-%20LEFT.png)
+
+!!! Пример не оч. To be continued...
