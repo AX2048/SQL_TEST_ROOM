@@ -183,7 +183,7 @@ python-scripts/postgres
       ADMINER_DESIGN: pepa-linha-dark
 ```
 
-## Использование для решения ACUTA-задачи
+## Использование для решения ACUTA
 
 **Задача**
 
@@ -334,8 +334,8 @@ outer_haven=# SELECT * FROM names;
 
 ![](.gitcontent/posgre_roles.png)
 
-
 ## INNER JOIN и LEFT JOIN
+![](.gitcontent/inner_vs_left.png)
 
 Создадим и заполним таблицы `employees` и `projects`:
 
@@ -397,3 +397,22 @@ LEFT JOIN projects ON employees.id = projects.employee_id
 ![](.gitcontent/Screenshot_20230604_163735%20-%20LEFT.png)
 
 !!! Пример не оч. To be continued...
+
+---
+
+Созадаём 50 пользователей
+
+```
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50),
+  age INTEGER,
+  email VARCHAR(100),
+  created_at TIMESTAMP,
+  number INTEGER,
+  description TEXT,
+  key VARCHAR(250)
+);
+```
+
+`python-scripts/postgres/add_50_users.py`

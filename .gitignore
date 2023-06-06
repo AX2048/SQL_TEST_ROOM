@@ -2,6 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 # https://www.w3schools.com/git/git_ignore.asp?remote=github
 
+### My ###
+#_draft/
+
 ### SHARE ###
 # ignore ALL .log files
 *.log
