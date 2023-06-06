@@ -1,6 +1,9 @@
 import random
 import psycopg2
 
+# Количество записей
+number_of_phones = 50
+
 # Параметры подключения к базе данных
 params = {
     "host": "postgres",
@@ -23,9 +26,9 @@ conn = psycopg2.connect(**params)
 cursor = conn.cursor()
 
 # Заполнение таблицы phones
-for i in range(50):
+for i in range(number_of_phones):
     phone_model = random.choice(phone_models)
-    user_id = random.randint(1, 50)  # Пример ID пользователя, замените на свою логику
+    user_id = random.randint(300, 350)  # Пример ID пользователя, замените на свою логику
 
     # Формирование SQL-запроса на вставку
     query = "INSERT INTO phones (phone_model, user_id) VALUES (%s, %s)"

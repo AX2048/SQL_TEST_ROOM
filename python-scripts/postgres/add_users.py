@@ -2,9 +2,13 @@ import psycopg2
 import random
 from datetime import datetime
 import base64
+from faker import Faker
 
-# Range
-range_users = 50
+# Количество пользователей
+number_of_users = 50
+
+# INIT
+fake = Faker()
 
 # Параметры подключения к базе данных
 host = "postgres"
@@ -17,10 +21,10 @@ connection = psycopg2.connect(host=host, database=database, user=user, password=
 cursor = connection.cursor()
 
 # Генерация и вставка случайных записей
-for _ in range(range_users):
-    name = "User" + str(random.randint(1, 100))
+for _ in range(number_of_users):
+    name = fake.name()
     age = random.randint(18, 65)
-    email = name.lower() + "@example.com"
+    email = name.lower().replace(' ', '_') + "@example.com"
     created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     number = random.randint(100000, 999999)
     description = "Lorem ipsum dolor sit amet"
