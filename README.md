@@ -1,4 +1,4 @@
-![](.gitcontent/Krita/title_new.png)
+![](.gitcontent/title_new.png)
 
 Подробности проекта смотри в моём Notion:
 
