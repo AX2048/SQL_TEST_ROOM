@@ -416,3 +416,18 @@ CREATE TABLE users (
 ```
 
 `python-scripts/postgres/add_50_users.py`
+
+---
+
+`python-scripts/postgres/_executor.py`
+
+```
+root@58f595a4ee16:/app/postgres# python3 _executor.py "SELECT * FROM users"
+1, User70, 25, user70@example.com, 2023-06-06 20:34:24, 126781, Lorem ipsum dolor sit amet, -2772884735141130839
+2, User29, 56, user29@example.com, 2023-06-06 20:34:24, 505379, Lorem ipsum dolor sit amet, -1365879911400013014
+3, User23, 23, user23@example.com, 2023-06-06 20:34:24, 403896, Lorem ipsum dolor sit amet, 8836781916055931146
+4, User71, 19, user71@example.com, 2023-06-06 20:34:24, 885127, Lorem ipsum dolor sit amet, -8685642493342716222
+5, User8, 57, user8@example.com, 2023-06-06 20:34:24, 459481, Lorem ipsum dolor sit amet, -6854524815737999821
+6, User51, 30, user51@example.com, 2023-06-06 20:34:24, 150034, Lorem ipsum dolor sit amet, 3312976594619999483
+...
+```

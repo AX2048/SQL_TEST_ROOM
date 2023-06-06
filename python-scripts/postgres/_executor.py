@@ -53,4 +53,4 @@ result = execute_query(args.query)
 
 # Вывод результатов
 for row in result:
-    print(row)
+    print(', '.join(str(value) for value in row))
