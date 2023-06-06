@@ -27,7 +27,7 @@ for _ in range(number_of_users):
     email = name.lower().replace(' ', '_') + "@example.com"
     created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     number = random.randint(100000, 999999)
-    description = "Lorem ipsum dolor sit amet"
+    description = fake.text().replace("\n", "")
     key = base64.b64encode((name + str(number)).encode()).decode()
 
     query = """

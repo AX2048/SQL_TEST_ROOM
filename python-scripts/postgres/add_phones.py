@@ -28,7 +28,7 @@ cursor = conn.cursor()
 # Заполнение таблицы phones
 for i in range(number_of_phones):
     phone_model = random.choice(phone_models)
-    user_id = random.randint(300, 350)  # Пример ID пользователя, замените на свою логику
+    user_id = random.randint(401, 450)  # Пример ID пользователя, замените на свою логику
 
     # Формирование SQL-запроса на вставку
     query = "INSERT INTO phones (phone_model, user_id) VALUES (%s, %s)"
