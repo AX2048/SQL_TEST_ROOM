@@ -5,11 +5,22 @@ import string
 from datetime import datetime
 import base64
 from faker import Faker
+import psycopg2
+from psycopg2 import sql
 
 
 # Подготовка
 fake = Faker('ru_RU')
-cost = 10
+cost = 1000
+
+# Подключение к базе данных PostgreSQL
+conn = psycopg2.connect(
+    host="postgres",
+    database="outer_haven",
+    user="postgres",
+    password="postgres"
+)
+
 
 # Транслит
 def latinizator(letter):
@@ -66,14 +77,49 @@ def create_user(name):
     return user
 
 
-for _ in range(cost):
-    print(create_user(fake.name()))
-    
-print(create_user(fake.name())[0])
+#for _ in range(cost):
+#    print(create_user(fake.name()))
 
-print(*create_user(fake.name()), sep=', ')
+# user_public_name 1
+# user_name_ru 2
+# user_name_en 3 
+# user_b_date 4
+# user_address 5
+# user_email 6
+# user_job 7
+# user_company 8
+# user_ip 9
+# user_fio_ikato 10
+# user_base64 11
+# user_reg_date 12
+# user_description 13
+# user_login 14
+# user_phone_number 15
 
-user = [ (str(u)) for u in create_user(fake.name()) ]
+try:
+    # Создание объекта "курсор" для выполнения SQL-запросов
+    cursor = conn.cursor()
 
-print(user)
+    for _ in range(cost):
+        
+        query = """
+        INSERT INTO fake_names (user_public_name, user_name_ru, user_name_en, user_b_date, user_address, user_email, user_job, user_company, user_ip, user_fio_ikato, user_base64, user_reg_date, user_description, user_login, user_phone_number)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
 
+        values = (create_user(fake.name())[0], create_user(fake.name())[1], create_user(fake.name())[2], create_user(fake.name())[3], create_user(fake.name())[4], create_user(fake.name())[5], create_user(fake.name())[6], create_user(fake.name())[7], create_user(fake.name())[8], create_user(fake.name())[9], create_user(fake.name())[10], create_user(fake.name())[11], create_user(fake.name())[12], create_user(fake.name())[13], create_user(fake.name())[14])
+        cursor.execute(query, values)
+
+    # Подтверждение изменений
+    conn.commit()
+    print("Записи успешно добавлены в таблицу 'fake_names'")
+
+except (Exception, psycopg2.Error) as error:
+    print("Ошибка при добавлении записей:", error)
+
+finally:
+    # Закрытие курсора и соединения с базой данных
+    if cursor:
+        cursor.close()
+    if conn:
+        conn.close()
