@@ -1,12 +1,14 @@
 import os
 from sys import argv
 import random
+from datetime import datetime
+import base64
 from faker import Faker
 
 
 # Подготовка
 fake = Faker('ru_RU')
-cost = 2000
+cost = 10
 
 # Транслит
 def latinizator(letter):
@@ -29,13 +31,34 @@ def ikato_namer(name):
     ikato = en_ikato[en_alfabet.index(latinizator(name).split()[0][0])] + " " + en_ikato[en_alfabet.index(latinizator(name).split()[1][0])] + " " + en_ikato[en_alfabet.index(latinizator(name).split()[2][0])]
     return ikato
 
+# Создаём пользователя
+def create_user(name):
+    user_public_name = name
+    
+    user_name_ru = user_public_name
+    if len(user_public_name.split()) == 4: # убираем префиксы из имён тов. Faker'а
+        user_name_ru = name.split()[1] + " " + name.split()[2] + " " + name.split()[3]
+    
+    user_name_en = latinizator(user_name_ru)
+    user_b_date = fake.date_of_birth()
+    user_address = fake.address()
+    user_email = email_namer(user_name_ru)
+    user_job = fake.job()
+    user_ip = fake.ipv4_private()
+    user_fio_ikato = ikato_namer(user_name_en)
+    
+    data_b64 = user_name_en + str(user_b_date)
+    user_base64 = base64.b64encode(data_b64.encode()).decode()
+    
+    user_reg_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    user_description = fake.paragraph(nb_sentences=1)
+    
+    user_login = user_name_en.lower().split()[0].replace("'", "") + "." + user_name_en.lower().split()[1][0] + user_name_en.lower().split()[2][0] + "_" + user_base64[:8]
+    user_phone_number = fake.phone_number()
+    
+    user = [user_public_name, user_name_ru, user_name_en, user_b_date, user_address, user_email, user_job, user_ip, user_fio_ikato, user_base64, user_reg_date, user_description, user_login, user_phone_number]
+    return user
 
-# Использование
+
 for _ in range(cost):
-    name = fake.name()
-    print(f"Name :: {name} // {len(name.split())}")
-    
-    if len(name.split()) == 4: # убираем префиксы из имён тов. Faker'а
-        name = name.split()[1] + " " + name.split()[2] + " " + name.split()[3]
-    
-    print(f"| ikato = {ikato_namer(name)} | Имя :: {name} | Name :: {latinizator(name)} | date :: {fake.date()} | Job :: {fake.job()} | Email :: {email_namer(name)} | Адрес :: {fake.address()} | IP :: {fake.ipv4_private()} |")
+    print(create_user(fake.name()))
