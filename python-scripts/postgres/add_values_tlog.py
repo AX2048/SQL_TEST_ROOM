@@ -2,13 +2,13 @@ import random
 from datetime import datetime, timedelta
 import psycopg2
 import base64
-#from faker import Faker
+from faker import Faker
 
 # Количество пользователей
-number_of_users = 50
+number_of_users = 100
 
 # INIT
-#fake = Faker()
+fake = Faker()
 
 # Параметры подключения к базе данных PostgreSQL
 host = "postgres"
@@ -31,7 +31,8 @@ cur = conn.cursor()
 for _ in range(number_of_users):
     action = random.choice(actions)
     error_message = random.choice(error_messages)
-    username = random.choice(users).lower()
+    username = fake.name().lower()
+    #username = random.choice(users).lower()
     dtm = datetime.now() - timedelta(days=random.randint(0, 30))
 
     # Вставка записи в таблицу t_log
@@ -43,4 +44,4 @@ conn.commit()
 cur.close()
 conn.close()
 
-print("50 записей было успешно создано в таблице t_log.")
+print(f"{number_of_users} записей было успешно создано в таблице t_log.")
