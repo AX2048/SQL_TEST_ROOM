@@ -11,7 +11,7 @@ from psycopg2 import sql
 
 # Подготовка
 fake = Faker('ru_RU')
-cost = 1000
+cost = 100
 
 # Подключение к базе данных PostgreSQL
 conn = psycopg2.connect(
@@ -107,7 +107,8 @@ try:
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
-        values = (create_user(fake.name())[0], create_user(fake.name())[1], create_user(fake.name())[2], create_user(fake.name())[3], create_user(fake.name())[4], create_user(fake.name())[5], create_user(fake.name())[6], create_user(fake.name())[7], create_user(fake.name())[8], create_user(fake.name())[9], create_user(fake.name())[10], create_user(fake.name())[11], create_user(fake.name())[12], create_user(fake.name())[13], create_user(fake.name())[14])
+        user = create_user(fake.name())
+        values = (user[0], user[1], user[2], user[3], user[4], user[5], user[6], user[7], user[8], user[9], user[10], user[11], user[12], user[13], user[14])
         cursor.execute(query, values)
 
     # Подтверждение изменений
