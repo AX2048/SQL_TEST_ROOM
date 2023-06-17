@@ -2,7 +2,7 @@ from faker import Faker
 
 fake = Faker('ru_RU')
 
-cost = 5
+cost = 10
 
 for _ in range(cost):
   print(fake.name())
