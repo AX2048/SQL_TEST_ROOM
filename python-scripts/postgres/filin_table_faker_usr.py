@@ -76,6 +76,16 @@ def create_user(name):
     user = [user_public_name, user_name_ru, user_name_en, user_b_date, user_address, user_email, user_job, user_company, user_ip, user_fio_ikato, user_base64, user_reg_date, user_description, user_login, user_phone_number]
     return user
 
+def convertList(list1):
+    ln = len(list1)
+    z = "("
+    for i in list1:
+        if list1.index(i) < ln - 1:
+            z += "'" + i + "'" + ", "
+        else:
+            z += "'" + i + "'"
+    z += ")"  
+    return z
 
 #for _ in range(cost):
 #    print(create_user(fake.name()))
@@ -109,7 +119,10 @@ try:
 
         user = create_user(fake.name())
         values = (user[0], user[1], user[2], user[3], user[4], user[5], user[6], user[7], user[8], user[9], user[10], user[11], user[12], user[13], user[14])
+        #values = convertList(user)
+        #print(values)
         cursor.execute(query, values)
+        
 
     # Подтверждение изменений
     conn.commit()

@@ -1,10 +1,12 @@
+# root@61a45e2c0f4f:/app/postgres# python3 _executor.py "SELECT * FROM fake_names;"
+
 import argparse
 import psycopg2
 
 # Параметры подключения к базе данных
 params = {
     'host': 'postgres',
-    'database': 'mydatabase',
+    'database': 'outer_haven',
     'user': 'postgres',
     'password': 'postgres'
 }

@@ -9,7 +9,7 @@ from faker import Faker
 
 # Подготовка
 fake = Faker('ru_RU')
-cost = 10
+cost = 1
 
 # Транслит
 def latinizator(letter):
@@ -65,15 +65,40 @@ def create_user(name):
     user = [user_public_name, user_name_ru, user_name_en, user_b_date, user_address, user_email, user_job, user_company, user_ip, user_fio_ikato, user_base64, user_reg_date, user_description, user_login, user_phone_number]
     return user
 
+def convertList(list1):
+    ln = len(list1)
+    z = "("
+    for i in list1:
+        if list1.index(i) < ln - 1:
+            z += "'" + i + "'" + ", "
+        else:
+            z += "'" + i + "'"
+    z += ")"  
+    return z
 
 for _ in range(cost):
-    print(create_user(fake.name()))
+    user = create_user(fake.name())
     
-print(create_user(fake.name())[0])
+    x = "("
+    x += ', '.join(map(str, user))
+    x += ")"
+    
+    y = (user[0], user[1], user[2], user[3], user[4], user[5], user[6], user[7], user[8], user[9], user[10], user[11], user[12], user[13], user[14])
+    
+    z = convertList(user)
 
-print(*create_user(fake.name()), sep=', ')
+    print(x)
+    print(y)
+    print(z)
 
-user = [ (str(u)) for u in create_user(fake.name()) ]
 
-print(user)
+#print(create_user(fake.name())[0])
 
+#print(*create_user(fake.name()), sep=', ')
+
+#user = [ (str(u)) for u in create_user(fake.name()) ]
+
+#print(user)
+
+#    for tx in x:
+#        print(f"X :: {type(tx)}")
